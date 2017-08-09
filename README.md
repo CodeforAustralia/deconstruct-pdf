@@ -1,4 +1,4 @@
-The deconstruct-pdf series of shell scripts allows the users to "deconstruct" the pdf to **text and html file formats.** It does so using poppler-utils.
+The deconstruct-pdf series of shell scripts allows the users to "deconstruct" the **pdf** to **text** and **html** file formats. It does so using poppler-utils.
 
 Currently, it has only been tested on Ubuntu 16.04
 
