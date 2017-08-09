@@ -25,6 +25,6 @@ for file in $PDF_DIR*; do
 done
 # Mitigate MS Word artefact - replace Unicode U+F0B7 with bullet 
 sed -i 's//\&bull;/g' $HTML_FILE
-# bgcolor hardcoded into poppler-utils pdftohtml - change it to white 
+# body bgcolor hardcoded into poppler-utils pdftohtml - change it to white 
 sed -i 's/body bgcolor=\"\#A0A0A0\"/body bgcolor=\"\#fff"/g' $HTML_FILE
 echo "Done!!!"
