@@ -2,6 +2,9 @@
 PDF_DIR="./pdf/"
 TEXT_DIR="./text/"
 HTML_DIR="./html/"
+mkdir -p pdf
+mkdir -p text
+mkdir -p html
 TODAY=$(date)
 HOST=$(hostname)
 echo "-----------------------------------------------------"
