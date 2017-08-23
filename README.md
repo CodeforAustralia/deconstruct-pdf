@@ -5,7 +5,8 @@ Currently, it has only been tested on Ubuntu 16.04
 ## Pre-requistes
 You must have poppler-utils istalled. If your Linux distribution uses APT you will want to:-
 
-```sudo apt-get update
+```
+sudo apt-get update
 sudo apt-get install poppler-utils
 ```
 
