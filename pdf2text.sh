@@ -1,7 +1,23 @@
 #!/bin/bash
+while getopts b:d: option
+do
+ case "${option}"
+ in
+ b) BASE_DIR=${OPTARG};;
+ d) DOCUMENTS_DIR=${OPTARG};;
+ esac
+done
 
-DOCUMENTS_DIR="./documents/"  
-BASE_DIR="."  
+if [ -z "$BASE_DIR" ] 
+	then
+    		echo "usage: pdf2text [-b <base_directory> -d <document_directory>] [--help]"
+fi
+
+echo "BASE_DIR = $BASE_DIR"
+echo "DOCUMENTS_DIR = $DOCUMENTS_DIR"
+
+#DOCUMENTS_DIR="/home/user01/Projects/CfA/pdf-to-text/documents/"  
+#BASE_DIR="/opt/lampp/htdocs/work/documents"  
 PDF_DIR="$BASE_DIR/pdf/"
 TEXT_DIR="$BASE_DIR/text/"
 HTML_DIR="$BASE_DIR/html/"
@@ -44,9 +60,9 @@ do
   	pdftohtml -p -i -noframes -nomerge $file $HTML_FILE
 
 # mitigate MS Word artefact - replace Unicode U+F0B7 with bullet 
-  	sed -i.bak 's//\&bull;/g' $HTML_FILE
+  	sed -i 's//\&bull;/g' $HTML_FILE
 # bgcolor hardcoded into poppler-utils pdftohtml - change it to white 
-  	sed -i.bak 's/body bgcolor=\"\#A0A0A0\"/body bgcolor=\"\#fff"/g' $HTML_FILE
+  	sed -i 's/body bgcolor=\"\#A0A0A0\"/body bgcolor=\"\#fff"/g' $HTML_FILE
 
 # get the Reference Number, Tempalte Number and Letter Date
 	unset REF_NO
