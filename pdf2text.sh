@@ -1,22 +1,5 @@
 #!/bin/bash
-while getopts b:d: option
-do
- case "${option}"
- in
- b) BASE_DIR=${OPTARG};;
- d) DOCUMENTS_DIR=${OPTARG};;
- esac
-done
 
-if [ -z "$BASE_DIR" ] 
-	then
-    		echo "usage: pdf2text [-b <base_directory> -d <document_directory>] [--help]"
-fi
-
-echo "BASE_DIR = $BASE_DIR"
-echo "DOCUMENTS_DIR = $DOCUMENTS_DIR"
-
-<<<<<<< HEAD
 VERSION=0.0.1
 #Initialize
 DEBUG=0
@@ -78,10 +61,6 @@ if [ -z "$DOCUMENTS_DIR" ]
     		 usage;
 fi
 
-=======
-#DOCUMENTS_DIR="/home/user01/Projects/CfA/pdf-to-text/documents/"  
-#BASE_DIR="/opt/lampp/htdocs/work/documents"  
->>>>>>> e2cb4f9a3558817d87d7b0fc221edf5053a65e6f
 PDF_DIR="$BASE_DIR/pdf/"
 TEXT_DIR="$BASE_DIR/text/"
 HTML_DIR="$BASE_DIR/html/"
