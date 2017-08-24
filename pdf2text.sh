@@ -1,7 +1,66 @@
 #!/bin/bash
 
-DOCUMENTS_DIR="./documents/"  
-BASE_DIR="."  
+VERSION=0.0.1
+#Initialize
+DEBUG=0
+
+usage() {
+    echo "Usage:"
+    echo "  [-d document_directory] [-b base_directory] [-h] [--help] [-v]"
+    echo ""
+    echo "Help Options:"
+    echo "  -h, --help     Show help"    
+    echo "  -v             Show version" 
+    echo ""
+    echo "Options:"
+    echo "  -b             Base directory where \"deconstructed\" files will be located (in subdirectories)"
+    echo "  -d             Document directory where PDF files are located"
+    exit 0
+}
+
+version() {
+    echo "Version: $VERSION"
+    exit 0
+}
+
+#If no arguments passed then show help and exit
+if [ $# -eq 0 ];
+then
+    usage;
+fi
+
+#Assess first argument 
+case $1 in
+     -h) usage;
+	;; 
+ --help) usage;
+	;;
+     -v) version;
+        ;;
+esac
+
+# Get arguments
+while getopts b:d: option
+do
+ case "${option}"
+ in
+      b) BASE_DIR=${OPTARG};;
+      d) DOCUMENTS_DIR=${OPTARG};;
+ esac
+done
+
+if [ -z "$BASE_DIR" ] 
+	then
+		 echo "Base directory is not specified"
+    		 usage;
+fi
+
+if [ -z "$DOCUMENTS_DIR" ] 
+	then
+		 echo "Document directory is not specified"
+    		 usage;
+fi
+
 PDF_DIR="$BASE_DIR/pdf/"
 TEXT_DIR="$BASE_DIR/text/"
 HTML_DIR="$BASE_DIR/html/"
@@ -10,8 +69,8 @@ mkdir -p $PDF_DIR
 mkdir -p $TEXT_DIR
 mkdir -p $HTML_DIR
 #
-# where to put files that are undefined in terms of reference
-# number and template
+# where to put files that are undefined (i.e. reference
+# number and template cannot be found)
 UNDEFINED_PDF_DIRECTORY=$PDF_DIR"undefined"
 UNDEFINED_TEXT_DIRECTORY=$TEXT_DIR"undefined"
 UNDEFINED_HTML_DIRECTORY=$HTML_DIR"undefined"
@@ -21,11 +80,20 @@ HOST=$(hostname)
 echo "-----------------------------------------------------"
 echo "PDF to TEXT and HTML Conversion"
 echo "Date: $TODAY"                     
-echo "Host:$HOST"
+echo "Host: $HOST"
 echo "-----------------------------------------------------"
-echo "The PDF  Directory is: $PDF_DIR"
-echo "The TEXT Directory is: $TEXT_DIR"
-echo "The HTML Directory is: $HTML_DIR"
+
+if [ "$DEBUG" -ne "0" ]
+	then
+		echo "DOCUMENTS_DIR = $DOCUMENTS_DIR"
+                echo ""
+		echo "BASE_DIR = $BASE_DIR"
+		echo "The PDF  Directory is: $PDF_DIR"
+		echo "The TEXT Directory is: $TEXT_DIR"
+		echo "The HTML Directory is: $HTML_DIR"
+                echo ""
+fi
+
 echo "Processing files..."
 
 for file in $DOCUMENTS_DIR*
@@ -40,13 +108,12 @@ do
   	echo "$FILE"
 # Extract to text and html files
   	pdftotext $file $TEXT_FILE
-#  	pdftohtml -p -i -noframes -nomerge $file $HTML_FILE
   	pdftohtml -p -i -noframes -nomerge $file $HTML_FILE
 
 # mitigate MS Word artefact - replace Unicode U+F0B7 with bullet 
-  	sed -i.bak 's//\&bull;/g' $HTML_FILE
+  	sed -i 's//\&bull;/g' $HTML_FILE
 # bgcolor hardcoded into poppler-utils pdftohtml - change it to white 
-  	sed -i.bak 's/body bgcolor=\"\#A0A0A0\"/body bgcolor=\"\#fff"/g' $HTML_FILE
+  	sed -i 's/body bgcolor=\"\#A0A0A0\"/body bgcolor=\"\#fff"/g' $HTML_FILE
 
 # get the Reference Number, Tempalte Number and Letter Date
 	unset REF_NO
@@ -101,11 +168,14 @@ do
         
         	LETTER_DATE="$YEAR-$MONTH_NO-$DAY"
 
+		if [ "$DEBUG" -ne "0" ]
+			then
 
-    		echo "Service ID = $REF_NO"
-    		echo "Template = $TEMPLATE_NO"
- 	        echo "Letter Date = $LETTER_DATE"
- 
+				echo "Service ID =  $REF_NO"
+    				echo "Template =    $TEMPLATE_NO"
+ 	        		echo "Letter Date = $LETTER_DATE"
+				echo "-----------------------------------------------------"
+		fi
 
     		REF_PDF_DIRECTORY=$PDF_DIR$REF_NO
     		REF_TEXT_DIRECTORY=$TEXT_DIR$REF_NO
