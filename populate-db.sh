@@ -13,7 +13,7 @@ do
 done
 
 
-echo "Target DB = $TARGET_DB"
+#echo "Target DB = $TARGET_DB"
 #echo "Letter Date = $LETTER_DATE"
 #echo "Service ID = $REF_NO"
 #echo "Template = $TEMPLATE_NO"
