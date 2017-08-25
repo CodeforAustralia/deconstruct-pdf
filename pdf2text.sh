@@ -6,7 +6,7 @@ DEBUG=0
 
 usage() {
     echo "Usage:"
-    echo "  [-d document_directory] [-b base_directory] [-h] [--help] [-v]"
+    echo "  [-d document_directory] [-b base_directory] [t target_database] [-h] [--help] [-v]"
     echo ""
     echo "Help Options:"
     echo "  -h, --help     Show help"    
@@ -15,6 +15,7 @@ usage() {
     echo "Options:"
     echo "  -b             Base directory where \"deconstructed\" files will be located (in subdirectories)"
     echo "  -d             Document directory where PDF files are located"
+    echo "  -t             Target database"
     exit 0
 }
 
@@ -40,12 +41,13 @@ case $1 in
 esac
 
 # Get arguments
-while getopts b:d: option
+while getopts b:d:t: option
 do
  case "${option}"
  in
       b) BASE_DIR=${OPTARG};;
       d) DOCUMENTS_DIR=${OPTARG};;
+      t) TARGET_DB=${OPTARG};;
  esac
 done
 
@@ -58,6 +60,12 @@ fi
 if [ -z "$DOCUMENTS_DIR" ] 
 	then
 		 echo "Document directory is not specified"
+    		 usage;
+fi
+
+if [ -z "$TARGET_DB" ] 
+	then
+		 echo "Target database is not specified"
     		 usage;
 fi
 
@@ -190,7 +198,7 @@ do
     		mv $TEXT_FILE "$REF_TEXT_DIRECTORY/$REF_TEXT_FILE"
     		mv $HTML_FILE "$REF_HTML_DIRECTORY/$REF_HTML_FILE"
 
-                sh ./populate-db.sh -d $LETTER_DATE -r $REF_NO -t $TEMPLATE_NO -u $UUID
+                sh ./populate-db.sh -d $TARGET_DB -l $LETTER_DATE -r $REF_NO -t $TEMPLATE_NO -u $UUID
 	fi
   fi
 done
