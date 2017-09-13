@@ -19,7 +19,7 @@ done
 #echo "Template = $TEMPLATE_NO"
 #echo "UUID = $UUID"
  
-mysql -uroot $TARGET_DB <<EOF
+mysql $TARGET_DB <<EOF
 INSERT INTO letters (uuid, reference_id, template_id, letter_date, created_at, updated_at) VALUES 
 ('$UUID', '$REF_NO', '$TEMPLATE_NO', '$LETTER_DATE', now(), now());
 commit;

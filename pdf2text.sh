@@ -6,7 +6,7 @@ DEBUG=0
 
 usage() {
     echo "Usage:"
-    echo "  [-d document_directory] [-b base_directory] [t target_database] [-h] [--help] [-v]"
+    echo "  [-d document_directory] [-b base_directory] [-t target_database] [-h] [--help] [-v]"
     echo ""
     echo "Help Options:"
     echo "  -h, --help     Show help"    
@@ -63,11 +63,19 @@ if [ -z "$DOCUMENTS_DIR" ]
     		 usage;
 fi
 
+
 if [ -z "$TARGET_DB" ] 
 	then
 		 echo "Target database is not specified"
     		 usage;
 fi
+
+# Make sure that DOCUMENTS_DIR directory end in '/'
+DOCUMENTS_DIR=$(echo $DOCUMENTS_DIR | sed "s,/$,,")
+DOCUMENTS_DIR="$DOCUMENTS_DIR/"
+
+# Make sure BASE_DIR does not have a trailing '/'
+BASE_DIR=$(echo $BASE_DIR | sed "s,/$,,")
 
 PDF_DIR="$BASE_DIR/pdf/"
 TEXT_DIR="$BASE_DIR/text/"
