@@ -63,7 +63,6 @@ if [ -z "$DOCUMENTS_DIR" ]
     		 usage;
 fi
 
-
 if [ -z "$TARGET_DB" ] 
 	then
 		 echo "Target database is not specified"
@@ -110,6 +109,14 @@ if [ "$DEBUG" -ne "0" ]
                 echo ""
 fi
 
+
+
+if [ $(find "$DOCUMENTS_DIR" -maxdepth 0 -type d -empty 2>/dev/null) ]; 
+	then
+    		echo "Document directory empty, nothing to process"
+		exit 0
+fi
+
 echo "Processing files..."
 
 for file in $DOCUMENTS_DIR*
@@ -124,14 +131,26 @@ do
   	echo "$FILE"
 # Extract to text and html files
   	pdftotext $file $TEXT_FILE
-  	pdftohtml -p -i -noframes -nomerge $file $HTML_FILE
+#  	pdftohtml -p -i -c -noframes -nomerge $file $HTML_FILE
+  	pdftohtml -p -i -c -noframes $file $HTML_FILE
+
+
 
 # mitigate MS Word artefact - replace Unicode U+F0B7 with bullet 
   	sed -i 's//\&bull;/g' $HTML_FILE
 # bgcolor hardcoded into poppler-utils pdftohtml - change it to white 
-  	sed -i 's/body bgcolor=\"\#A0A0A0\"/body bgcolor=\"\#fff"/g' $HTML_FILE
+  	sed -i 's/body bgcolor=\"\#A0A0A0\"/body style=\"background-color: \#ffffff\;\"/g' $HTML_FILE
+# non-breaking space (&#160;) shold be just a space
+        sed -i 's/\&\#160;/ /g' $HTML_FILE
+# take styling off the paragraphs
+        sed -i 's/\<p style\=\".*\"/p/g' $HTML_FILE
+# take additional styling off the pages
+        sed -i 's/\-div\".style\=\".*\"/\-div\" style\=\"border-bottom\:1px solid \#ccc\;\"/g' $HTML_FILE
+#
+        sed -i 's/margin\: 0/margin-top\: 20px/g' $HTML_FILE
+ 
 
-# get the Reference Number, Tempalte Number and Letter Date
+# get the Reference Number, Template Number and Letter Date
 	unset REF_NO
 	unset TEMPLATE_NO
         unset DAY
