@@ -13,11 +13,11 @@ do
 done
 
 
-echo "Target DB = $TARGET_DB"
-echo "Letter Date = $LETTER_DATE"
-echo "Service ID = $REF_NO"
-echo "Template = $TEMPLATE_NO"
-echo "UUID = $UUID"
+#echo "Target DB = $TARGET_DB"
+#echo "Letter Date = $LETTER_DATE"
+#echo "Service ID = $REF_NO"
+#echo "Template = $TEMPLATE_NO"
+#echo "UUID = $UUID"
  
 mysql -uroot $TARGET_DB <<EOF
 INSERT INTO letters (uuid, reference_id, template_id, filename, letter_date, created_at, updated_at) VALUES 
