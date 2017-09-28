@@ -2,7 +2,7 @@
 
 VERSION=0.0.1
 #Initialize
-DEBUG=0
+DEBUG=1
 
 usage() {
     echo "Usage:"
@@ -135,6 +135,7 @@ do
   	pdftohtml -p -i -c -noframes $file $HTML_FILE
 
 
+# Tidy up the HTML file:-
 
 # mitigate MS Word artefact - replace Unicode U+F0B7 with bullet 
   	sed -i 's//\&bull;/g' $HTML_FILE
@@ -157,10 +158,25 @@ do
         unset MONTH
         unset YEAR
         unset LETTER_DATE
+	unset NO_OF_PAGES
 
-  	REF_NO=$(fgrep "Ref No. " $TEXT_FILE | sed 's/Ref No. //g' | sed 's/ //g')
+	# get the reference number  	
+	REF_NO=$(fgrep "Ref No. " $TEXT_FILE | sed 's/Ref No. //g' | sed 's/ //g')
+	if [ -z "$REF_NO" ] 
+	then
+			REF_NO=$(fgrep "Reference Number: " $TEXT_FILE | sed 's/Reference Number: //g' | sed 's/ //g')
+	fi
+
+
 	# get the template number
   	TEMPLATE_NO=$(fgrep "TMP-" $TEXT_FILE | sed 's/ //g')
+	if [ -z "$TEMPLATE_NO" ] 
+	then
+			TEMPLATE_NO=$(fgrep "BO_Seq" $TEXT_FILE | sed 's/ //g')
+	fi
+
+ 	NO_OF_PAGES=$(pdfinfo $file | grep Pages | sed 's/[^0-9]*//')
+
 
 	if [ -z "$REF_NO" ] 
 	then
