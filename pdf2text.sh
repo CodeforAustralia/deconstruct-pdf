@@ -225,6 +225,7 @@ do
 				echo "Service ID =  $REF_NO"
     				echo "Template =    $TEMPLATE_NO"
  	        		echo "Letter Date = $LETTER_DATE"
+	        		echo "Number of Pages = $NO_OF_PAGES"
 				echo "-----------------------------------------------------"
 		fi
 
@@ -241,7 +242,7 @@ do
     		mv $TEXT_FILE "$REF_TEXT_DIRECTORY/$REF_TEXT_FILE"
     		mv $HTML_FILE "$REF_HTML_DIRECTORY/$REF_HTML_FILE"
 
-                sh ./populate-db.sh -d $TARGET_DB -l $LETTER_DATE -r $REF_NO -t $TEMPLATE_NO -u $UUID
+                sh ./populate-db.sh -d $TARGET_DB -l $LETTER_DATE -r $REF_NO -t $TEMPLATE_NO -u $UUID -p $NO_OF_PAGES
 	fi
   fi
 done
