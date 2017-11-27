@@ -96,6 +96,11 @@ $ tree output/
 
 Note that the UUIDs will be generated at random and the file names will, therefore, be unique.
 
+## About
+These series of scripts converts **pdf** files to **text** and **html** files and carries out some text processing on the text files. The text files are then searched for certain information, specifically a _Reference Number_, _Template Number_ (from which the letter was generated) and the stated _Letter Date_. The script also uses a utility to calculate the number of pages the document has. The files are then ordered in an output directory structure that corresponds to the type of file and the reference number. So, for instance, the sample letters that are provided in this distribution are organised according to the _Reference Number_ given in the letter. Thus _sample-001.pdf_, which contains the text "Ref No. 2357111317" results in its getting filed under a subdirectory structure _<output_directory>/pdf/2357111317/<UUID>.pdf_ (where the UUID is some randomly-generated unique number.) Additionally, 2 further files are generated:- _<output_directory>/text/2357111317/<UUID>.txt_ which is in plain text format and _<output_directory>/html/2357111317/<UUID>.html_ which is the html rendering of this letter.
+
+Furthermore, the database is update with the required information so that server-side scripting (whatever you are using) can make reference to this information. The vhs repository, for instance, makes use of these database tables to securely read the **pdf** files.
+
 ## Usage
 A per help instructions, the idea is to give a document directory as an input parameter, this is the directory where the **pdf** files are located. It might, for example be the directory of some user who ftp'ed (or stfp'ed) some documents over to your box.
 
@@ -113,9 +118,6 @@ $ sh pdf2text.sh -d "/home/someUser/ftp/incoming" -b "/var/www/vhs/correspondenc
 ```  
 
 N.B. You will certainly want to watch your permissions and ownership as the web server process has to be able to at least read the files you have produced. For the database too, you will have to make sure you have set up authentication correctly and that when the command *mysql* is called in [populate-db.sh](https://github.com/CodeforAustralia/deconstruct-pdf/blob/master/populate-db.sh) (line 24) you have sufficient privilege to update the database tables. (See this blog for [configuring MySQL](https://github.com/CodeforAustralia/vhs/wiki/Configuring-MySQL).)
-
-## About
-These series of scripts converts **pdf** files to **text** and **html** files and carries out some text processing on the text files. The text files are then searched for certain information, specifically a _Reference Number_, _Template Number_ (from which the letter was generated) and the stated _Letter Date_. The script also uses a utility to calculate the number of pages the document has. The files are then ordered in an output directory structure that corresponds to the type of file and the reference number. So, for instance, the sample letters that are provided in this distribution are organised according to the _Reference Number_ given in the letter. Thus _sample-001.pdf_ is   
 
 ## Tested
 
