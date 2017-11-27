@@ -101,7 +101,7 @@ These series of scripts converts **pdf** files to **text** and **html** files an
 
 Thus _sample-001.pdf_, which contains the text "Ref No. 2357111317", results in its getting filed under a subdirectory structure _<output_directory>/pdf/2357111317/&lt;UUID&gt;.pdf_ (where the UUID is some randomly-generated unique number.) Additionally, 2 other files are generated:- _<output_directory>/text/2357111317/&lt;UUID&gt;.txt_ which is the letter in plain text format and _<output_directory>/html/2357111317/&lt;UUID&gt;.html_ which is the html rendering of the letter.
 
-Furthermore, the database is updated with the required information so that server-side scripting (whatever you are using) can make use of this information. The [vhs repository](https://github.com/CodeforAustralia/vhs), for instance, makes use of these database tables to securely read the **pdf** files (as in, for example, this [Laravel Controller](https://github.com/CodeforAustralia/vhs/blob/master/app/Http/Controllers/ActualLetterController.php))
+Furthermore, the database is updated with the required information so that server-side scripting (whatever you are using) can make use of this information. The [vhs repository](https://github.com/CodeforAustralia/vhs), for instance, makes use of these database tables to generate a secure copy of the **pdf** file (as in, for example, this [Laravel Controller](https://github.com/CodeforAustralia/vhs/blob/master/app/Http/Controllers/ActualLetterController.php))
 
 ## Usage
 A per help instructions, the idea is to give a document directory as an input parameter, this is the directory where the **pdf** files are located. It might, for example be the directory of some user who ftp'ed (or stfp'ed) some documents over to your box.
