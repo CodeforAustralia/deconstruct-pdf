@@ -18,7 +18,7 @@ See a [quick guide](https://www.howtogeek.com/228531/how-to-convert-a-pdf-file-t
 Just download the files and use them from command line (on a Linux system where bash is available.) Start with getting some help:-
 
 ```
-sh pdf2text.sh --help
+$sh pdf2text.sh --help
 Usage:
   [-d document_directory] [-b base_directory] [-t target_database] [-h] [--help] [-v]
 
@@ -37,7 +37,19 @@ A per help instructions, the idea is to give a document directory as an input pa
 
 e.g. _/home/someUser/ftp/incoming/_
 
-You will also want to   
+You will also want to specify where you want the new files to be written to. You may want to write them to a web server location like
+
+e.g. _/var/www/vhs/correspondence_
+
+You also need to specify a target database in which you want certain tables to be updated. If your MySQL database, for example, is named "vhsdb" you will want to issues a command such as:-
+
+
+```
+$ sh pdf2text.sh -d "/home/someUser/ftp/incoming" -b "/var/www/vhs/correspondence" -t vhsdb >> some.log
+
+```  
+
+N.B. You will certainly want to watch your permissions and ownership as the server process has to be able to at least read the files you have produced. For the database too, you will have to make sure you have set up authentication correctly and that when the command *mysql* is called in [populate-db.sh](https://github.com/CodeforAustralia/deconstruct-pdf/blob/master/populate-db.sh) (line 24) you have sufficient privilege to update the database tables. (See this blog for [configuring MySQL](https://github.com/CodeforAustralia/vhs/wiki/Configuring-MySQL).)
 
 ## About
 These series of scripts converts **pdf** files to **text** and **html** files and carries out some text processing on the text files.

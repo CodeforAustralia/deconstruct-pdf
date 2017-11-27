@@ -19,15 +19,15 @@ echo "Letter Date = $LETTER_DATE"
 echo "Service ID = $REF_NO"
 echo "Template = $TEMPLATE_NO"
 echo "UUID = $UUID"
-echo "NO_OF_PAGES = $NO_OF_PAGES" 
+echo "Number of Pages = $NO_OF_PAGES"
 
-mysql -uroot $TARGET_DB <<EOF
+mysql $TARGET_DB <<EOF
 SET autocommit=0;
 START TRANSACTION;
-INSERT INTO letters (uuid, reference_id, template_id, filename, letter_date, pages, created_at, updated_at) VALUES 
+INSERT INTO letters (uuid, reference_id, template_id, filename, letter_date, pages, created_at, updated_at) VALUES
 ('$UUID', '$REF_NO', '$TEMPLATE_NO', '$UUID.html', '$LETTER_DATE', $NO_OF_PAGES, now(), now());
 
-INSERT INTO letter_history (reference_id, user_id, letter_uuid, created_at, updated_at) 
+INSERT INTO letter_history (reference_id, user_id, letter_uuid, created_at, updated_at)
 (select user_services.reference_id, user_services.user_id, '$UUID' as letter_uuid, now(), now() from user_services where reference_id='$REF_NO');
 COMMIT;
 SET autocommit=1;
