@@ -1,4 +1,4 @@
-The deconstruct-pdf series of shell scripts allows the users to "deconstruct" **pdf** files to **text** and **html** file formats. It does so using poppler-utils.
+The **deconstruct-pdf** series of bash shell scripts allows the users to "deconstruct" **pdf** files to **text** and **html** file formats, using poppler-utils. It then allows some text processing to take place and organises the files in a directory structure that makes it eas(ier) to serve up from a web server, for example.  
 
 
 ## Pre-requistes
@@ -32,8 +32,12 @@ Options:
   -t             Target database
 ```  
 
-
 ## Usage
+A per help instructions, the idea is to give a document directory as an input parameter, this is the directory where the **pdf** files are located. It might, for example be the directory of some user who ftp'ed (or stfp'ed) some documents over to your box.
+
+e.g. _/home/someUser/ftp/incoming/_
+
+You will also want to   
 
 ## About
 These series of scripts converts **pdf** files to **text** and **html** files and carries out some text processing on the text files.
