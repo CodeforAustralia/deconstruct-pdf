@@ -38,11 +38,12 @@ Options:
 Then you might want to do a test run with the sample documents provided.
 
 ```
+Template = TMP-MG-03
 $ sh pdf2text.sh -d sample_documents/ -b ./output -t vhs
 -----------------------------------------------------
 PDF to TEXT and HTML Conversion
-Date: Monday 27 November  14:12:24 AEDT 2017
-Host: someHost
+Date: Monday 27 November  14:51:06 AEDT 2017
+Host: youyang
 -----------------------------------------------------
 DOCUMENTS_DIR = sample_documents/
 
@@ -63,9 +64,8 @@ Target DB = vhs
 Letter Date = 2017-08-08
 Service ID = 2357111317
 Template = TMP-MG-01
-UUID = 906ff7841f483df89b1690965a1b8298
+UUID = 72ca7728c5c4f746b363072a5a1b8baa
 Number of Pages = 1
-
 sample-002.pdf
 Page-1
 Service ID =  1923293137
@@ -77,9 +77,8 @@ Target DB = vhs
 Letter Date = 2015-06-09
 Service ID = 1923293137
 Template = TMP-MG-02
-UUID = 121848b3e4311bb653b0ce595a1b8298
+UUID = abdcf15902d5aa24987565085a1b8baa
 Number of Pages = 1
-
 sample-003.pdf
 Page-1
 Service ID =  1923293137
@@ -91,32 +90,9 @@ Target DB = vhs
 Letter Date = 2016-06-21
 Service ID = 1923293137
 Template = TMP-MG-03
-UUID = 5ce197af6f7e29270c2b70905a1b8298
+UUID = 0e23987a2885e27399f708525a1b8bab
 Number of Pages = 1
-
 Done!!!
-$ tree output/
-output/
-├── html
-│   ├── 1923293137
-│   │   ├── 121848b3e4311bb653b0ce595a1b8298.html
-│   │   └── 5ce197af6f7e29270c2b70905a1b8298.html
-│   └── 2357111317
-│       └── 906ff7841f483df89b1690965a1b8298.html
-├── pdf
-│   ├── 1923293137
-│   │   ├── 121848b3e4311bb653b0ce595a1b8298.pdf
-│   │   └── 5ce197af6f7e29270c2b70905a1b8298.pdf
-│   └── 2357111317
-│       └── 906ff7841f483df89b1690965a1b8298.pdf
-└── text
-    ├── 1923293137
-    │   ├── 121848b3e4311bb653b0ce595a1b8298.txt
-    │   └── 5ce197af6f7e29270c2b70905a1b8298.txt
-    └── 2357111317
-        └── 906ff7841f483df89b1690965a1b8298.txt
-
-9 directories, 9 files
 ```
 
 Note that the UUIDs will be generated at random and the file names will, therefore, be unique.
@@ -135,7 +111,6 @@ You also need to specify a target database in which you want certain tables to b
 
 ```
 $ sh pdf2text.sh -d "/home/someUser/ftp/incoming" -b "/var/www/vhs/correspondence" -t vhsdb >> some.log
-
 ```  
 
 N.B. You will certainly want to watch your permissions and ownership as the web server process has to be able to at least read the files you have produced. For the database too, you will have to make sure you have set up authentication correctly and that when the command *mysql* is called in [populate-db.sh](https://github.com/CodeforAustralia/deconstruct-pdf/blob/master/populate-db.sh) (line 24) you have sufficient privilege to update the database tables. (See this blog for [configuring MySQL](https://github.com/CodeforAustralia/vhs/wiki/Configuring-MySQL).)
