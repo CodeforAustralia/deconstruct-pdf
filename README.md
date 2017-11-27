@@ -38,61 +38,60 @@ Options:
 Then you might want to do a test run with the sample documents provided.
 
 ```
-Template = TMP-MG-03
-$ sh pdf2text.sh -d sample_documents/ -b ./output -t vhs
+$ sh pdf2text.sh -d sample_documents/ -b ./output -t some_database
 -----------------------------------------------------
 PDF to TEXT and HTML Conversion
-Date: Monday 27 November  14:51:06 AEDT 2017
-Host: youyang
+Date: Monday 27 November  15:05:09 AEDT 2017
+Host: some_hostname
 -----------------------------------------------------
-DOCUMENTS_DIR = sample_documents/
-
-BASE_DIR = ./output
-The PDF  Directory is: ./output/pdf/
-The TEXT Directory is: ./output/text/
-The HTML Directory is: ./output/html/
-
 Processing files...
 sample-001.pdf
 Page-1
-Service ID =  2357111317
-Template =    TMP-MG-01
-Letter Date = 2017-08-08
-Number of Pages = 1
------------------------------------------------------
-Target DB = vhs
+Target DB = some_database
 Letter Date = 2017-08-08
 Service ID = 2357111317
 Template = TMP-MG-01
-UUID = 72ca7728c5c4f746b363072a5a1b8baa
+UUID = 7b3633e1aa874987dcc3a8e75a1b8ef5
 Number of Pages = 1
 sample-002.pdf
 Page-1
-Service ID =  1923293137
-Template =    TMP-MG-02
-Letter Date = 2015-06-09
-Number of Pages = 1
------------------------------------------------------
-Target DB = vhs
+Target DB = some_database
 Letter Date = 2015-06-09
 Service ID = 1923293137
 Template = TMP-MG-02
-UUID = abdcf15902d5aa24987565085a1b8baa
+UUID = 609638bd22cdf23eaf33743d5a1b8ef5
 Number of Pages = 1
 sample-003.pdf
 Page-1
-Service ID =  1923293137
-Template =    TMP-MG-03
-Letter Date = 2016-06-21
-Number of Pages = 1
------------------------------------------------------
-Target DB = vhs
+Target DB = some_database
 Letter Date = 2016-06-21
 Service ID = 1923293137
 Template = TMP-MG-03
-UUID = 0e23987a2885e27399f708525a1b8bab
+UUID = 98b4ad4150c945934231b4f15a1b8ef5
 Number of Pages = 1
 Done!!!
+$ tree output/
+'output/
+├── html
+│   ├── 1923293137
+│   │   ├── 609638bd22cdf23eaf33743d5a1b8ef5.html
+│   │   └── 98b4ad4150c945934231b4f15a1b8ef5.html
+│   └── 2357111317
+│       └── 7b3633e1aa874987dcc3a8e75a1b8ef5.html
+├── pdf
+│   ├── 1923293137
+│   │   ├── 609638bd22cdf23eaf33743d5a1b8ef5.pdf
+│   │   └── 98b4ad4150c945934231b4f15a1b8ef5.pdf
+│   └── 2357111317
+│       └── 7b3633e1aa874987dcc3a8e75a1b8ef5.pdf
+└── text
+    ├── 1923293137
+    │   ├── 609638bd22cdf23eaf33743d5a1b8ef5.txt
+    │   └── 98b4ad4150c945934231b4f15a1b8ef5.txt
+    └── 2357111317
+        └── 7b3633e1aa874987dcc3a8e75a1b8ef5.txt
+
+9 directories, 9 files
 ```
 
 Note that the UUIDs will be generated at random and the file names will, therefore, be unique.
