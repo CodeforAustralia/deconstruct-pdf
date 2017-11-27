@@ -1,8 +1,8 @@
-The **deconstruct-pdf** series of bash shell scripts allows the users to "deconstruct" **pdf** files to **text** and **html** file formats, using poppler-utils. It then allows some text processing to take place and organises the files in a directory structure that makes it eas(ier) to serve up from a web server, for example.  
+The **deconstruct-pdf** series of bash shell scripts allows the users to "deconstruct" **pdf** files to **text** and **html** file formats, using poppler-utils. It then allows some text processing to take place and organises the files in a directory structure that makes it eas(y/ier) to serve up from a web server, for example.  
 
 
 ## Pre-requistes
-You must have poppler-utils installed. See the Poppler website, [poppler.freedesktop.org](https://poppler.freedesktop.org), for the latest distribution.
+1\. You must have poppler-utils installed. See the Poppler website, [poppler.freedesktop.org](https://poppler.freedesktop.org), for the latest distribution.
 
 
 If your Linux distribution uses APT you may want to:-
@@ -13,6 +13,9 @@ sudo apt-get install poppler-utils
 ```
 
 See a [quick guide](https://www.howtogeek.com/228531/how-to-convert-a-pdf-file-to-editable-text-using-the-command-line-in-linux/).
+
+2\. You will also need to set up a MySQL database and configure so there is a default login at command line.
+
 
 ## Setup
 Just download the files and use them from command line (on a Linux system where bash is available.) Start with getting some help:-
@@ -32,6 +35,92 @@ Options:
   -t             Target database
 ```  
 
+Then you might want to do a test run with the sample documents provided.
+
+```
+$ sh pdf2text.sh -d sample_documents/ -b ./output -t vhs
+-----------------------------------------------------
+PDF to TEXT and HTML Conversion
+Date: Monday 27 November  14:12:24 AEDT 2017
+Host: someHost
+-----------------------------------------------------
+DOCUMENTS_DIR = sample_documents/
+
+BASE_DIR = ./output
+The PDF  Directory is: ./output/pdf/
+The TEXT Directory is: ./output/text/
+The HTML Directory is: ./output/html/
+
+Processing files...
+sample-001.pdf
+Page-1
+Service ID =  2357111317
+Template =    TMP-MG-01
+Letter Date = 2017-08-08
+Number of Pages = 1
+-----------------------------------------------------
+Target DB = vhs
+Letter Date = 2017-08-08
+Service ID = 2357111317
+Template = TMP-MG-01
+UUID = 906ff7841f483df89b1690965a1b8298
+Number of Pages = 1
+
+sample-002.pdf
+Page-1
+Service ID =  1923293137
+Template =    TMP-MG-02
+Letter Date = 2015-06-09
+Number of Pages = 1
+-----------------------------------------------------
+Target DB = vhs
+Letter Date = 2015-06-09
+Service ID = 1923293137
+Template = TMP-MG-02
+UUID = 121848b3e4311bb653b0ce595a1b8298
+Number of Pages = 1
+
+sample-003.pdf
+Page-1
+Service ID =  1923293137
+Template =    TMP-MG-03
+Letter Date = 2016-06-21
+Number of Pages = 1
+-----------------------------------------------------
+Target DB = vhs
+Letter Date = 2016-06-21
+Service ID = 1923293137
+Template = TMP-MG-03
+UUID = 5ce197af6f7e29270c2b70905a1b8298
+Number of Pages = 1
+
+Done!!!
+$ tree output/
+output/
+├── html
+│   ├── 1923293137
+│   │   ├── 121848b3e4311bb653b0ce595a1b8298.html
+│   │   └── 5ce197af6f7e29270c2b70905a1b8298.html
+│   └── 2357111317
+│       └── 906ff7841f483df89b1690965a1b8298.html
+├── pdf
+│   ├── 1923293137
+│   │   ├── 121848b3e4311bb653b0ce595a1b8298.pdf
+│   │   └── 5ce197af6f7e29270c2b70905a1b8298.pdf
+│   └── 2357111317
+│       └── 906ff7841f483df89b1690965a1b8298.pdf
+└── text
+    ├── 1923293137
+    │   ├── 121848b3e4311bb653b0ce595a1b8298.txt
+    │   └── 5ce197af6f7e29270c2b70905a1b8298.txt
+    └── 2357111317
+        └── 906ff7841f483df89b1690965a1b8298.txt
+
+9 directories, 9 files
+```
+
+Note that the UUIDs will be generated at random and the file names will, therefore, be unique.
+
 ## Usage
 A per help instructions, the idea is to give a document directory as an input parameter, this is the directory where the **pdf** files are located. It might, for example be the directory of some user who ftp'ed (or stfp'ed) some documents over to your box.
 
@@ -49,10 +138,10 @@ $ sh pdf2text.sh -d "/home/someUser/ftp/incoming" -b "/var/www/vhs/correspondenc
 
 ```  
 
-N.B. You will certainly want to watch your permissions and ownership as the server process has to be able to at least read the files you have produced. For the database too, you will have to make sure you have set up authentication correctly and that when the command *mysql* is called in [populate-db.sh](https://github.com/CodeforAustralia/deconstruct-pdf/blob/master/populate-db.sh) (line 24) you have sufficient privilege to update the database tables. (See this blog for [configuring MySQL](https://github.com/CodeforAustralia/vhs/wiki/Configuring-MySQL).)
+N.B. You will certainly want to watch your permissions and ownership as the web server process has to be able to at least read the files you have produced. For the database too, you will have to make sure you have set up authentication correctly and that when the command *mysql* is called in [populate-db.sh](https://github.com/CodeforAustralia/deconstruct-pdf/blob/master/populate-db.sh) (line 24) you have sufficient privilege to update the database tables. (See this blog for [configuring MySQL](https://github.com/CodeforAustralia/vhs/wiki/Configuring-MySQL).)
 
 ## About
-These series of scripts converts **pdf** files to **text** and **html** files and carries out some text processing on the text files.
+These series of scripts converts **pdf** files to **text** and **html** files and carries out some text processing on the text files. The text files are then searched for certain information, specifically a _Reference Number_, _Template Number_ (from which the letter was generated) and the stated _Letter Date_. The script also uses a utility to calculate the number of pages the document has. The files are then ordered in an output directory structure that corresponds to the type of file and the reference number. So, for instance, the sample letters that are provided in this distribution are organised according to the _Reference Number_ given in the letter. Thus _sample-001.pdf_ is   
 
 ## Tested
 
