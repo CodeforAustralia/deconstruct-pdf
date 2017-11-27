@@ -16,6 +16,43 @@ See a [quick guide](https://www.howtogeek.com/228531/how-to-convert-a-pdf-file-t
 
 2\. You will also need to set up a MySQL database and configure so there is a default login at command line.
 
+You may want to do something like this
+```
+USE `some_database`;
+
+CREATE TABLE `letters` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` char(36) COLLATE utf8_unicode_ci NOT NULL,
+  `reference_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `template_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `letter_date` date NOT NULL,
+  `pages` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+);
+
+
+CREATE TABLE `letter_history` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `reference_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `letter_uuid` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `unread` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+);
+
+
+CREATE TABLE `user_services` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `reference_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+);
+```
+
+3\. You will have to make sure you have set up authentication correctly for the MySQL database so that when the command *mysql* is called in [populate-db.sh](https://github.com/CodeforAustralia/deconstruct-pdf/blob/master/populate-db.sh) (line 24) you have sufficient privilege to update the database tables. (See this blog for [configuring MySQL](https://github.com/CodeforAustralia/vhs/wiki/Configuring-MySQL).)
+
 
 ## Setup
 Just download the files and use them from command line (on a Linux system where bash is available.) Start with getting some help:-
@@ -119,7 +156,7 @@ You also need to specify a target database in which you want certain tables to b
 $ sh pdf2text.sh -d "/home/someUser/ftp/incoming" -b "/var/www/vhs/correspondence" -t vhsdb >> some.log
 ```  
 
-N.B. You will certainly want to watch your permissions and ownership as the web server process has to be able to at least read the files you have produced. For the database too, you will have to make sure you have set up authentication correctly and that when the command *mysql* is called in [populate-db.sh](https://github.com/CodeforAustralia/deconstruct-pdf/blob/master/populate-db.sh) (line 24) you have sufficient privilege to update the database tables. (See this blog for [configuring MySQL](https://github.com/CodeforAustralia/vhs/wiki/Configuring-MySQL).)
+N.B. You will certainly want to watch your permissions and ownership as the web server process has to be able to at least read the files you have produced.
 
 ## Tested
 
