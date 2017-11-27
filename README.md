@@ -14,9 +14,9 @@ sudo apt-get install poppler-utils
 
 See a [quick guide](https://www.howtogeek.com/228531/how-to-convert-a-pdf-file-to-editable-text-using-the-command-line-in-linux/).
 
-2\. You will also need to set up a MySQL database and configure so there is a default login at command line.
+2\. You will also need to set up a MySQL database and configure it so there is a default login at command line.
 
-You may want to do something like this
+To create the database and the relevant tables you may want to do something like this:-
 ```
 USE `some_database`;
 
@@ -51,7 +51,7 @@ CREATE TABLE `user_services` (
 );
 ```
 
-3\. You will have to make sure you have set up authentication correctly for the MySQL database so that when the command *mysql* is called in [populate-db.sh](https://github.com/CodeforAustralia/deconstruct-pdf/blob/master/populate-db.sh) (line 24) you have sufficient privilege to update the database tables. (See this blog for [configuring MySQL](https://github.com/CodeforAustralia/vhs/wiki/Configuring-MySQL).)
+You will also have to make sure you have set up authentication correctly for the MySQL database so that when the command *mysql* is called in [populate-db.sh](https://github.com/CodeforAustralia/deconstruct-pdf/blob/master/populate-db.sh) (line 24) you have sufficient privilege to update the database tables. See this blog for [configuring MySQL](https://github.com/CodeforAustralia/vhs/wiki/Configuring-MySQL).)
 
 
 ## Setup
