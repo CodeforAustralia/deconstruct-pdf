@@ -18,6 +18,8 @@ See a [quick guide](https://www.howtogeek.com/228531/how-to-convert-a-pdf-file-t
 
 To create the database and the relevant tables you may want to do something like this:-
 ```
+CREATE DATABASE `some_database` CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
 USE `some_database`;
 
 CREATE TABLE `letters` (
@@ -51,7 +53,7 @@ CREATE TABLE `user_services` (
 );
 ```
 
-You will also have to make sure you have set up authentication correctly for the MySQL database so that when the command *mysql* is called in [populate-db.sh](https://github.com/CodeforAustralia/deconstruct-pdf/blob/master/populate-db.sh) (line 24) you have sufficient privilege to update the database tables. See this blog for [configuring MySQL](https://github.com/CodeforAustralia/vhs/wiki/Configuring-MySQL).)
+You will also have to make sure you have set up authentication correctly for the MySQL database so that when the command *mysql* is called in [populate-db.sh](https://github.com/CodeforAustralia/deconstruct-pdf/blob/master/populate-db.sh) (line 24) that there is a default login and that that database user has sufficient privilege to update the database tables. See this blog for [configuring MySQL](https://github.com/CodeforAustralia/vhs/wiki/Configuring-MySQL).)
 
 
 ## Setup
