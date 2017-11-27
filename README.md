@@ -54,7 +54,7 @@ CREATE TABLE `user_services` (
 );
 ```
 
-**2b** You will also have to make sure you have set up authentication correctly for the MySQL database so that when the command *mysql* is called in [populate-db.sh](https://github.com/CodeforAustralia/deconstruct-pdf/blob/master/populate-db.sh) (line 24) that there is a default login and that that database user has sufficient privilege to update the database tables. See this blog for [configuring MySQL](https://github.com/CodeforAustralia/vhs/wiki/Configuring-MySQL).)
+**2b** You will also have to make sure you have set up authentication correctly for the MySQL database so that when the command *mysql* is called in [populate-db.sh](https://github.com/CodeforAustralia/deconstruct-pdf/blob/master/populate-db.sh) (line 24) that there is a default login and that that database user has sufficient privilege to update the database tables. See this blog for [configuring MySQL](https://github.com/CodeforAustralia/vhs/wiki/Configuring-MySQL).
 
 
 ## Setup
