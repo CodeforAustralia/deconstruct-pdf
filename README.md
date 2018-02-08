@@ -144,7 +144,7 @@ Thus _sample-001.pdf_, which contains the text "Ref No. 2357111317", results in 
 Furthermore, the database is updated with the required information so that server-side scripting (whatever you are using) can make use of this information. The [vhs repository](https://github.com/CodeforAustralia/vhs), for instance, makes use of these database tables to generate a secure copy of the **pdf** file (as in, for example, this [Laravel Controller](https://github.com/CodeforAustralia/vhs/blob/master/app/Http/Controllers/ActualLetterController.php))
 
 ## Usage
-A per help instructions, the idea is to give a document directory as an input parameter, this is the directory where the **pdf** files are located. It might, for example be the directory of some user who ftp'ed (or stfp'ed) some documents over to your box.
+As per help instructions, the idea is to give a document directory as an input parameter, this is the directory where the **pdf** files are located. It might, for example be the directory of some user who ftp'ed (or stfp'ed) some documents over to your box.
 
 e.g. _/home/someUser/ftp/incoming/_
 
